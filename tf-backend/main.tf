@@ -13,6 +13,7 @@ resource "azurerm_storage_account" "this" {
   account_tier = "Standard"
   access_tier  = "Cool"
 
+  min_tls_version                   = "TLS1_2"
   infrastructure_encryption_enabled = true
   queue_encryption_key_type         = "Account"
   table_encryption_key_type         = "Account"
