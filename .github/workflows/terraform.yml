@@ -69,7 +69,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: config
-          scan-ref: ./infra
+          scan-ref: ${{ inputs.working-directory }}
           hide-progress: false
           format: github
           exit-code: '1'
