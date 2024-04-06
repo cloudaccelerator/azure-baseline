@@ -1,0 +1,32 @@
+name: tf-backend
+run-name: "[terraform-${{ github.event_name == 'pull_request' && 'verify' || 'deploy' }}] [${{ github.workflow }}] ${{ github.event_name == 'pull_request' && github.event.pull_request.title || github.event.head_commit.message }}"
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'tf-backend/*'
+  push:
+    branches:
+      - main
+    paths:
+      - 'tf-backend/*'
+    tags-ignore:
+      - '*'
+
+permissions:
+  contents: read  # This is required for actions/checkout
+  id-token: write # This is required for requesting the JWT
+
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      concurrency: production-tf-backend
+      environment: ${{ github.event_name == 'push' && 'production' || '' }}
+      working-directory: ./tf-backend
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
