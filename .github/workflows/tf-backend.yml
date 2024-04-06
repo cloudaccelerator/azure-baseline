@@ -18,6 +18,7 @@ on:
 permissions:
   contents: read  # This is required for actions/checkout
   id-token: write # This is required for requesting the JWT
+  security-events: write # This is required for writing to GitHub Security Code scanning
 
 jobs:
   terraform:

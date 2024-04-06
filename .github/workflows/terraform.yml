@@ -23,6 +23,7 @@ on:
 permissions:
   contents: read  # This is required for actions/checkout
   id-token: write # This is required for requesting the JWT
+  security-events: write # This is required for writing to GitHub Security Code scanning
 
 jobs:
   terraform:
@@ -71,9 +72,14 @@ jobs:
           scan-type: config
           scan-ref: ${{ inputs.working-directory }}
           hide-progress: false
-          format: github
-          exit-code: '1'
-          github-pat: ${{ secrets.GITHUB_TOKEN }}
+          severity: CRITICAL,HIGH
+          format: sarif
+          output: trivy-results.sarif
+      - name: Upload Trivy scan results to GitHub Security tab
+        if: github.event_name == 'pull_request'
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
 
       - name: Terraform plan
         env:
