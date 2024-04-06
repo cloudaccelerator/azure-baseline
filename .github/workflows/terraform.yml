@@ -73,6 +73,7 @@ jobs:
           hide-progress: false
           format: github
           exit-code: '1'
+          github-pat: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Terraform plan
         env:
