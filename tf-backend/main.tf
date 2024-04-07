@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "this" {
   account_replication_type         = "LRS"
   cross_tenant_replication_enabled = false
 
-  shared_access_key_enabled       = false
+  shared_access_key_enabled       = true # Needed until https://github.com/hashicorp/terraform-provider-azurerm/issues/25521 is fixed
   default_to_oauth_authentication = true
 
   allow_nested_items_to_be_public = false
