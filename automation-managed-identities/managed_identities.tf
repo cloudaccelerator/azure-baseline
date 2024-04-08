@@ -45,6 +45,7 @@ resource "azurerm_role_assignment" "github_actions" {
   ]...)
 
   principal_id         = each.value.principal_id
+  principal_type       = "ServicePrincipal"
   role_definition_id   = try(each.value.role_definition_id, null)
   role_definition_name = try(each.value.role_definition_name, null)
   scope                = each.value.scope

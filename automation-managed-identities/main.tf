@@ -53,16 +53,16 @@ locals {
           scope                = data.azurerm_dns_zone.cloudaccelerator.id
         },
         {
-          "_key"           = "staticsites"
-          description      = "Manage static web apps."
-          role_defition_id = azurerm_role_definition.static_webapp_contributor.role_definition_resource_id
-          scope            = azurerm_resource_group.projects["website"].id
+          "_key"             = "staticsites"
+          description        = "Manage static web apps."
+          role_definition_id = azurerm_role_definition.static_webapp_contributor.role_definition_resource_id
+          scope              = azurerm_resource_group.projects["website"].id
         },
         {
-          "_key"           = "tf"
-          description      = "Access Terraform backend."
-          role_defition_id = data.azurerm_role_definition.terraform_backend_blob_data_contributor.role_definition_id
-          scope            = data.azurerm_storage_container.terraform_backend.resource_manager_id
+          "_key"             = "tf"
+          description        = "Access Terraform backend."
+          role_definition_id = data.azurerm_role_definition.terraform_backend_blob_data_contributor.role_definition_id
+          scope              = data.azurerm_storage_container.terraform_backend.resource_manager_id
         }
       ]
     }
